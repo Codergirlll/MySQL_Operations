@@ -1,21 +1,23 @@
 
-const app = require("express")()
+const express = require("express")
+const app = express()
+const bodyParser = require("body-parser")
+const { Table_Schema, Alter_Table_Schema } = require("./db/models/user.model")
 
+require("dotenv").config()
 require("../src/db/conectition/conn")
 
-let port = 3011
+
+// ******** for passing the body both methods are valid  ***********
+app.use(bodyParser.json())
+// app.use(express.json())
+
+// *****************************************************************
+Table_Schema()
+// Alter_Table_Schema()
+app.use("/", require("./router/route"))
+
+let port = process.env.PORT || 30
 app.listen(port, () => {
     console.log(`Server is running at port no: ${port}`)
 })
-
-// echo  "# MySQL_Operations" >> README.md
-// git init
-// git add README.md
-// git commit - m "first commit"
-// git branch - M main
-// git remote add origin https://github.com/Codergirlll/MySQL_Operations.git
-// git push - u origin main
-
-// git remote add origin https://github.com/Codergirlll/MySQL_Operations.git
-// git branch - M main
-// git push - u origin main
